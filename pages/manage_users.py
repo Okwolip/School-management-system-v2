@@ -4,16 +4,21 @@ from database import supabase
 def show():
     st.title("Manage Users")
 
+    role = st.session_state.user["role"]
+
+    if role != "Admin":
+        st.warning("Only admin can manage users")
+        return
+
     username = st.text_input("Username")
     password = st.text_input("Password")
-    role = st.selectbox("Role", ["Admin", "Teacher", "Cashier"])
+    role_select = st.selectbox("Role", ["Admin", "Teacher", "Cashier"])
 
     if st.button("Create User"):
-        data = {
+        supabase.table("users").insert({
             "username": username,
             "password": password,
-            "role": role
-        }
+            "role": role_select
+        }).execute()
 
-        supabase.table("users").insert(data).execute()
         st.success("User created")

@@ -8,24 +8,23 @@ def generate_student_id():
 def show():
     st.title("Register Student")
 
-    student_name = st.text_input("Student Name")
+    name = st.text_input("Student Name")
     dob = st.date_input("Date of Birth")
-    parent_name = st.text_input("Parent Name")
-    parent_phone = st.text_input("Parent Phone")
+    parent = st.text_input("Parent Name")
+    phone = st.text_input("Parent Phone")
 
     section = st.selectbox("Section", ["Nursery", "Primary", "Secondary"])
-    session = st.selectbox("Session", ["2025/2026", "2026/2027"])
+    session = st.text_input("Session (e.g. 2025/2026)")
 
     if st.button("Register Student"):
-
         student_id = generate_student_id()
 
         data = {
             "student_id": student_id,
-            "student_name": student_name,
+            "student_name": name,
             "dob": str(dob),
-            "parent_name": parent_name,
-            "parent_phone": parent_phone,
+            "parent_name": parent,
+            "parent_phone": phone,
             "section": section,
             "session": session
         }

@@ -2,12 +2,15 @@ import streamlit as st
 from database import supabase
 
 def login(username, password):
-    response = supabase.table("users").select("*").eq("username", username).eq("password", password).execute()
+    response = supabase.table("users") \
+        .select("*") \
+        .eq("username", username) \
+        .eq("password", password) \
+        .execute()
 
     if response.data:
         return response.data[0]
     return None
-
 
 def login_page():
     st.title("School Management System Login")
